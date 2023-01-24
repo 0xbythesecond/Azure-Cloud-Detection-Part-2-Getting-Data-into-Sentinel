@@ -58,7 +58,7 @@ Click “Start” at the top page to turn on the VM if its not on already . Enab
 
 Under Networking, you are given a public IP. Use an RDP on your PC Client such as Remote Desktop Connection to access your VM by entering in the public IP address.
 
-###### Note: You might need to refresh after starting the virtual machine to have the public IP show up.
+<h6>Note: You might need to refresh after starting the virtual machine to have the public IP show up.</h6>
 
 <p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Public IP address for VM"/></p>
 
@@ -237,6 +237,48 @@ The only other setting that need to be changed for the purposes of this lab is h
 Incident Settings and Automated Response are not necessary to alter for this lab so you can go ahead to “review and create” to make the Analytic Rule.
 
 <p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Confirm the existing schedule rule "/></p>
+
+Once you create your analytic rule the final step is to create another scheduled task in your Windows VM and wait for the alert to trigger in Sentinel
+
+####### Note this might take up to 10 minutes. Refresh the Incidents page periodically until the Alert triggers. When the alert fires this is what you should see.
+
+<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Second Scheduled Task"/></p>
+
+On the right pane we see all the necessary information we would need to begin investigating the alert such as the host machine, user account, process ID of the task, and the name of the scheduled task.
+
+While in this case, the scheduled task is non-malicious, in the event it was, from here an analyst would investigate the entities such as the user account, the scheduled task, host, etc. with other tools such as an EDR solution and other security tools to decide if this is a false positive or true positive.
+
+<hr>
+
+Part 6: MITRE ATT&CK
+<br />
+The observed MITRE ATT&CK tactic used in this lab is <a href="https://attack.mitre.org/tactics/TA0003/">TA0003 Persistence </a> which essentially allows a malicious actor to maintain a foothold in an environment.
+
+<p align="center"> <img src="https://i.imgur.com/NyRUngl.png" height="80%" width="80%" alt="Persistence MITRE ATT&CK"/></p>
+
+We can dig further into this by showing the technique of using a scheduled Task/Job.
+
+<p align="center"> <img src="https://i.imgur.com/YtkBmtQ.png" height="80%" width="80%" alt="Persistence MITRE ATT&CK"/></p>
+
+Even further, we can dig into the specific sub technique of <a href="https://attack.mitre.org/techniques/T1053/005/">T1053.005 </a>
+
+<p align="center"> <img src="https://i.imgur.com/eYZkpCM.png" height="80%" width="80%" alt="Scheduled Task-Job"/></p>
+
+<b> Detection </b>
+<br />
+As observed. monitoring and logging of specific windows event id was used to detect this activity. However, MITRE also has more recommendations for detection.
+
+<p align="center"> <img src="https://i.imgur.com/eder4e5.png" height="80%" width="80%" alt="Scheduled Task-Job"/></p>
+
+Mitigation
+<br />
+<a href="https://attack.mitre.org/mitigations/M1018//"> MITRE ID M1019 </a> – User Account Management suggests that user account privileges should be limited to only authorize admins to create scheduled tasks on remote systems.
+
+<p align="center"> <img src="https://i.imgur.com/Uoh3uny.png" height="80%" width="80%" alt="Mitre Mitigation"/></p>
+
+
+
+
 
 
 
