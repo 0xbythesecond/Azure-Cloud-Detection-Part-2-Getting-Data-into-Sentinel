@@ -1,76 +1,82 @@
 # Part 2: Getting Data Into Sentinel
 After the Sentinel Deployment, if we go to the incidents tab on the left we see we don’t have any incidents currently as there is no data being fed into sentinel. Next, we are going to utilize data connectors and create a data collection rule to bring in data from our Windows 10 VM.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt=" Select Add button"/></p>
+<p align="center"> <img src="https://i.imgur.com/mvi2hj1.png" height="50%" width="50%" alt=" Select Add button"/></p>
 
 Go to the Data connectors Tab. This is where we can select the type of data that we want to bring into our SIEM.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt=" Data Connector"/></p>
+<p align="center"> <img src="https://i.imgur.com/H3jcvVE.png" height="50%" width="50%" alt=" Data Connector"/></p>
 
 In the Search bar type in “Windows” and you will see Windows Security Events via AMA. Select that option and click “Open Connector Page”.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt=" Open Connector Page"/></p>
+<p align="center"> <img src="https://i.imgur.com/crJARTo.png" height="50%" width="50%" alt=" Open Connector Page"/></p>
 
-Click “Add Data collection rule.”
+Click “Create data collection rule.”
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Adding Data Collection"/></p>
+<p align="center"> <img src="https://i.imgur.com/xQpXOwJ.png" height="50%" width="50%" alt="Create data collection rule"/></p>
 
 Give your rule a name and connect to it your resource group we have used for all resources thus far.
 
+<p align="center"> <img src="https://i.imgur.com/mBxP1v3.png" height="50%" width="50%" alt="Create rule name"/></p>
+
 Click “Add resources”.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Add Resources"/></p>
+<p align="center"> <img src="https://i.imgur.com/1P35M0N.png" height="50%" width="50%" alt="Add Resources"/></p>
 
 Select the Virtual Machine created in Step 2 of the project.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Select Virtual Machine"/></p>
+<p align="center"> <img src="https://i.imgur.com/Jl3auIx.png" height="50%" width="50%" alt="Select Virtual Machine"/></p>
 
 Your Virtual Machine should now be shown.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Virtual Machine shown as option to collect data"/></p>
+<p align="center"> <img src="https://i.imgur.com/eqagdSc.png" height="50%" width="50%" alt="Virtual Machine shown as option to collect data"/></p>
 
 Now we will choose the 'Collect' tab to then choose to select “All Security Events” radio button. Once the 'All Security Events' option is selected, we can now choose 'Next: Review + Create'.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="All Security Events"/></p>
+<p align="center"> <img src="https://i.imgur.com/biwZLla.png" height="50%" width="50%" alt="All Security Events"/></p>
 
 The data collection rule should have a “Validation Passed” screen.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Validation Confirmation"/></p>
+<p align="center"> <img src="https://i.imgur.com/zbUX5ky.png" height="50%" width="50%" alt="Validation Confirmation"/></p>
 
 Refresh the page until the “Connected” status is shown.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Connected Status"/></p>
+<p align="center"> <img src="https://i.imgur.com/Bzhnk6y.png" height="50%" width="50%" alt="Connected Status"/></p>
 
 <hr>
 
 Part 3: Generating Security Events
 Now that our VM is connected to Sentinel and our Log Analytics Workspace, we need to transport data from our Logs. To do this, we simply need to perform some action on the Windows 10 events that will generate security alerts.
 
-Windows keeps a record of several types of security events. These events cover several potential scenarios such as privileged use, Logon events, processes, policy changes, and much more.
+Windows keeps a record of several types of security events. These events cover several potential scenarios such as <b> privileged use, Logon events, processes, policy changes</b>, and much more.
 
 We will now observe some Windows security events on our Virtual Machine.
 
 Utilize the Azure Portal to navigate to the VM created earlier in the lab.
 
-Click “Start” at the top page to turn on the VM if its not on already . Enable Just in time Access if necessary.
+Click “Start” at the top page to turn on the VM if its not running already . Enable Just in time Access if necessary.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Start Virtual Machine"/></p>
+<p align="center"> <img src="https://i.imgur.com/kn5tCVJ.png" height="50%" width="50%" alt="Start Virtual Machine"/></p>
 
 Under Networking, you are given a public IP. Use an RDP on your PC Client such as Remote Desktop Connection to access your VM by entering in the public IP address.
 
 <h6>Note: You might need to refresh after starting the virtual machine to have the public IP show up.</h6>
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Public IP address for VM"/></p>
+<p align="center"> <img src="https://i.imgur.com/bJeubsk.png" height="50%" width="50%" alt="Public IP address for VM"/></p>
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="RDP screen shot"/></p>
+<p align="center"> <img src="https://i.imgur.com/Pu1t12r.png" height="50%" width="50%" alt="RDP screen shot"/></p>
 
 From here you will be prompted to enter the username and password created when you made the VM.
 
 Once you successfully authenticate to the virtual machine and are logged in, search for Event Viewer and open the program.
 
-As you can see there are several types of logs Windows Collects. Application logs, Security Logs, Setup, System, and Forwarded Events.
+As you can see there are several types of logs Windows Collects:
+<br />
+<b> Application logs, Security Logs, Setup, System</b>, and <b>Forwarded Events</b>.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Event Viewer"/></p>
+<p align="center"> <img src="https://i.imgur.com/5AjVv7E.png" height="50%" width="50%" alt="Event Viewer Search"/></p>
+
+<p align="center"> <img src="https://i.imgur.com/OnglJ9P.png" height="50%" width="50%" alt="Event Viewer"/></p>
 
  Our focus in this lab will be on Windows Security events.
 
@@ -80,43 +86,44 @@ As you can see there are several security events in event viewer. Let’s drill 
 
 Use the find option and search for <b>4624</b>
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Find Event 4624"/></p>
+<p align="center"> <img src="https://i.imgur.com/DdN1jtO.png" height="50%" width="50%" alt="Find Event 4624"/></p>
 
 When we select event 4624 we see that 4624 ID is indicative of a successful logon. We can also examine more detailed information about the logon if need be.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="4624 Log Details"/></p>
+<p align="center"> <img src="https://i.imgur.com/O99FaMQ.png" height="50%" width="50%" alt="4624 Log Details"/></p>
 
 <hr> 
-Part 4: Kusto Query Language
+<b>Part 4: Kusto Query Language</b>
+<br />
 The purpose of a SIEM such as Azure Sentinel would be to bring data like this into a centralized location. In an enterprise, we would want data coming from all our endpoints and virtual machines to make it easier for an analyst to get the information that is needed quickly.
 
 Let’s go back to Azure Sentinel and pull this event from our Sentinel Logs.
 
 In the Sentinel, Main Page click “Logs”
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Select Logs from Left Pane"/></p>
+<p align="center"> <img src="https://i.imgur.com/Djj1x5z.png" height="50%" width="50%" alt="Select Logs from Left Pane"/></p>
 
 Logs should bring up this page.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Log page"/></p>
+<p align="center"> <img src="https://i.imgur.com/l06AUNY.png" height="50%" width="50%" alt="Log page"/></p>
 
 In the section where it says “Type your query” we are going to use the following KQL (Kusto Query Language) Logic:
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="KQL command request"/></p>
+<p align="center"> <img src="https://i.imgur.com/WqG4C9y.png" height="50%" width="50%" alt="KQL command request"/></p>
 
-Every SIEM has a search language that makes it simple to extract data from Logs. In Sentinel, that language is called KQL or Kusto Query Language. While there are many different syntax rules and ways to construct queries in KQL we will be using a few basic KQL commands to extract the data and write our analytics rule later in the lab.
+Every SIEM has a search language that makes it simple to extract data from Logs. In Sentinel, that language is called <b>KQL</b> or <b>Kusto Query Language</b>. While there are many different syntax rules and ways to construct queries in KQL we will be using a few basic KQL commands to extract the data and write our analytics rule later in the lab.
 
 Let’s break down the meaning of this query
 
 <b> Security Event </b> refers to the event table we are pulling the data from. All the events we observed in the event viewer are stored there.
 
-Where command filters on a specific category. In this case, we only want events that correspond to successful logins.
+<b>Where</b> command filters on a specific category. In this case, we only want events that correspond to successful logins.
 
-Project command will specify what data to display when the query is run so, in this specific scenario, we want to only see the time the logon event occurred, what computer it came from and what account on this computer-generated the event.
+<b>Project</b> command will specify what data to display when the query is run so, in this specific scenario, we want to only see the time the logon event occurred, what computer it came from and what account on this computer-generated the event.
 
 When the query is run we get this result.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="After running KQL request"/></p>
+<p align="center"> <img src="https://i.imgur.com/wqwb9bC.png" height="50%" width="50%" alt="After running KQL request"/></p>
 
 As you can see, we have a list of all the times we have had a successful login on our VM. However, as you can see the Account Name field is empty and sentinel is not automatically putting that data into that field. We will go over how to populate that field later in the lab when we create our analytic rule.
 
