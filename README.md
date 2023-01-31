@@ -222,12 +222,16 @@ You should see something like this:
 There is a lot of useful data in here such as the name of the scheduled task, the Task Name field, the ClientProcessID, the username of the account that created the scheduled task amongst other info.
 
 However, if you use the project command to display these data fields as columns when you run the query, we need to add this to our logic.
+<pre> SecurityEvent                             
+| where EventID == 4698
+| parse EventData with * '<Data Name="SubjectUserName">' User '</Data>' *
+| parse EventData with * '<Data Name="TaskName">' NameofSceuduledTask '</Data>' *
+| parse EventData with * '<Data Name="ClientProcessId">' ClientProcessID '</Data>' *
+| project Computer, TimeGenerated, ClientProcessID, NameofSceuduledTask, User
+</pre>
+The <b> Parse </b> command will allow us to extract data from the Event Data Field that we find important.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Added Project Command for KQL"/></p>
-
-The Parse command will allow us to extract data from the Event Data Field that we find important.
-
-This extracted the SubjectUserName , TaskName, ClientProcessID (Computer automatically displays) .
+This extracted the <b> SubjectUserName , TaskName, ClientProcessID </b> (Computer automatically displays) .
 
 The above logic allows me to assign those to new categories such as User, NameofScheduledTask, and ClientProcessID respectively. When we project our new fields, the output is the following:
 
@@ -236,7 +240,7 @@ The above logic allows me to assign those to new categories such as User, Nameof
 As you can see we’re able to generate Event Data and place it into its own category for readability.
 
 Copy and Paste the above query into the editor under the “Set Rule Logic” tab
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Set Rule Logic"/></p>
+<p align="center"> <img src="https://i.imgur.com/2p9dfjm.png" height="50%" width="50%" alt="Set Rule Logic"/></p>
 
 The Alert Enrichment section is below this. Enriching an alert simply is the process of adding context to the alert to make it easier for the analyst to investigate.
 
@@ -244,11 +248,16 @@ As opposed to having to query this data as we did in the analytic rule Alert Enr
 
 Use the following settings for entity mapping.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Entity Mapping"/></p>
+<p align="center"> <img src="https://i.imgur.com/TYmnLqz.png" height="50%" width="50%" alt="Entity Mapping"/></p>
 
 The only other setting that need to be changed for the purposes of this lab is how often the query is run and when to look up the data. Change defaults to the following:
-
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="How often query is run"/></p>
+<pre>Query scheduling
+Run query every
+5								Minutes 
+Lookup data from the last
+5 								Minutes
+</pre>
+<p align="center"> <img src="https://i.imgur.com/wokzcuJ.png" height="50%" width="50%" alt="How often query is run"/></p>
 
 Incident Settings and Automated Response are not necessary to alter for this lab so you can go ahead to “review and create” to make the Analytic Rule.
 
@@ -256,7 +265,7 @@ Incident Settings and Automated Response are not necessary to alter for this lab
 
 Once you create your analytic rule the final step is to create another scheduled task in your Windows VM and wait for the alert to trigger in Sentinel
 
-####### Note this might take up to 10 minutes. Refresh the Incidents page periodically until the Alert triggers. When the alert fires this is what you should see.
+###### Note this might take up to 10 minutes. Refresh the Incidents page periodically until the Alert triggers. When the alert fires this is what you should see.
 
 <p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Second Scheduled Task"/></p>
 
