@@ -200,6 +200,10 @@ Go to the sentinel Home Page and click “Analytics Rules” and click create at
 
 <p align="center"> <img src="https://i.imgur.com/my3tdAw.png" height="50%" width="50%" alt="Sentinel Created Rules for Scheduled Query"/></p>
 
+We will add the tactic and techniques of "Persistence and sub-category of T1053 - Scheduled task/job".
+
+<p align="center"> <img src="https://i.imgur.com/ZmtuvBL.png" height="50%" width="50%" alt="Sentinel Tactics and Techniques"/></p>
+
 Here we are simply providing some information about the alert to the analyst.
 
 Next, we will come up with the alert logic that causes our alert to fire.
@@ -211,13 +215,13 @@ Most of the logic will be like the <b> KQL Query</b> that we created earlier for
 
 This query will pull instances of scheduled task creation as shown here in our logs.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="KQL Query 4698"/></p>
+<p align="center"> <img src="https://i.imgur.com/c3EGsqj.png" height="50%" width="50%" alt="KQL Query 4698"/></p>
 
 Expand the log for the scheduled task you created in the previous step and look at the Event Data category.
 
 You should see something like this:
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Expand the Event Data"/></p>
+<p align="center"> <img src="https://i.imgur.com/IeGLwET.png" height="50%" width="50%" alt="Expand the Event Data"/></p>
 
 There is a lot of useful data in here such as the name of the scheduled task, the Task Name field, the ClientProcessID, the username of the account that created the scheduled task amongst other info.
 
@@ -261,7 +265,9 @@ Lookup data from the last
 
 Incident Settings and Automated Response are not necessary to alter for this lab so you can go ahead to “review and create” to make the Analytic Rule.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Confirm the existing schedule rule "/></p>
+<p align="center"> <img src="https://i.imgur.com/05lqXEs.png" height="50%" width="50%" alt="Event Grouping for each event"/></p>
+
+<p align="center"> <img src="https://i.imgur.com/P4xqoZS.png" height="50%" width="50%" alt="Confirm the existing schedule rule "/></p>
 
 Once you create your analytic rule the final step is to create another scheduled task in your Windows VM and wait for the alert to trigger in Sentinel
 
