@@ -123,24 +123,26 @@ Let’s break down the meaning of this query
 
 When the query is run we get this result.
 
-<p align="center"> <img src="https://i.imgur.com/wqwb9bC.png" height="50%" width="50%" alt="After running KQL request"/></p>
+<p align="center"> <img src="https://i.imgur.com/7BPMbr5.png" height="50%" width="50%" alt="After running KQL request"/></p>
 
 As you can see, we have a list of all the times we have had a successful login on our VM. However, as you can see the Account Name field is empty and sentinel is not automatically putting that data into that field. We will go over how to populate that field later in the lab when we create our analytic rule.
 
 <hr>
 <b> Part 5: Writing Analytic Rule and Generating Scheduled Task </b>
+<br />
 We can have the option to be alerted to certain events by setting up analytic rules. The Analytic rule will check our VM for the activity that matches the rule logic and generate an alert any time that activity is observed. There will be so some details provided in the alert that can help an analyst start their investigation into determining whether the event in the alert is a false positive or true positive.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Aanlytics"/></p>
+<p align="center"> <img src="https://i.imgur.com/CX6uQas.png" height="50%" width="50%" alt="Aanlytics"/></p>
 
 These are a list of alerts that we can enable our SIEM to monitor that come out of the box. If you wish, you can expand some and see what they are comprised of by clicking create a rule and following the onscreen tasks to see the rule logic and as well as enabling the rule. However, the rules will only fire if the logic is met by a security event on your VM.
 
 <b> Scheduled Task and Persistence Techniques </b>
+<br />
 The final part of this lab is to create our own custom rule to detect potentially malicious activity on our VM. In Windows Task scheduler you have the option to create a scheduled task. A scheduled task is essentially a way to automate certain activities on your machine .
 
 For instance, you could set up a scheduled task that opens google chrome at a certain time every day. While many times scheduled task can be a harmless event this can also be used as a persistence technique for malicious actors.
 
-According to the MITRE Attack Framework, “Adversaries may abuse task scheduling functionality to facilitate initial or recurring execution of malicious code. Utilities exist within all major operating systems to schedule programs or scripts to be executed at a specified date and time”.
+According to the <a href="https://attack.mitre.org/techniques/T1053/">MITRE Attack Framework</a>, “Adversaries may abuse task scheduling functionality to facilitate initial or recurring execution of malicious code. Utilities exist within all major operating systems to schedule programs or scripts to be executed at a specified date and time”.
 
 In this lab, our scheduled task will not be associated with any malicious activity as we will set up a scheduled task that opens Internet Explorer at a certain time but we will create an analytic rule to monitor for that specific action so we can be alerted to the to the activity in our SIEM in order to simulate the scenario.
 
@@ -148,15 +150,15 @@ The Windows Security Event ID that corresponds to scheduled task creation is 469
 
 Search for “Local Security Policy” in Windows 10 VM and expand “Advanced Audit Policy Configuration”
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Advanced Policy Configuration"/></p>
+<p align="center"> <img src="https://i.imgur.com/9mBIBqi.png" height="50%" width="50%" alt="Advanced Policy Configuration"/></p>
 
 Expand “System Audit Policies” and select "Object Access”. Then select the “Audit Other Object Access Event”
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Audit Other Object Access"/></p>
+<p align="center"> <img src="https://i.imgur.com/FcU26Wc.png" height="50%" width="50%" alt="Audit Other Object Access"/></p>
   
-Enable “Success” and “Failure”
+Select to enable Configure the following event: “Success” and “Failure”
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Enable Success & Failure"/></p>
+<p align="center"> <img src="https://i.imgur.com/eIx4HPD.png" height="50%" width="50%" alt="Enable Success & Failure"/></p>
 
 Logging is now enabled for the scheduled task event.
 
@@ -166,23 +168,29 @@ To detect a scheduled task creation, we need to generate some activity in our VM
 
 Open Windows Task Scheduler and navigate to “Create Task” . Add a name and change the “Configure For” Operating system to Windows 10.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Create Task"/></p>
+<p align="center"> <img src="https://i.imgur.com/VdvFJ5W.png" height="50%" width="50%" alt="Create Task"/></p>
+
+<p align="center"> <img src="https://i.imgur.com/jfdfVaa.png" height="50%" width="50%" alt="Create Task"/></p>
 
 Navigate to triggers and click “new” and schedule the task for a time close to your current time. Then select “OK”
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Schedule time new current time"/></p>
+<p align="center"> <img src="https://i.imgur.com/UK0PX7M.png" height="50%" width="50%" alt="Schedule time new current time"/></p>
 
 Navigate to the action tab and select start a program.
 
 Then open program or script and select a program to run every time this task runs. I will select Internet Explorer.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Select a Program"/></p>
+<p align="center"> <img src="https://i.imgur.com/xmFDX0E.png" height="50%" width="50%" alt="choose program"/></p>
+
+<p align="center"> <img src="https://i.imgur.com/J5iRQzK.png" height="50%" width="50%" alt="choose program"/></p>
+
+<p align="center"> <img src="https://i.imgur.com/NTIWyC1.png" height="50%" width="50%" alt="Select a Program"/></p>
 
 After this do not worry about the Conditions and Settings tab. Do not change any of the additional settings and click “OK”.
 
 This will create your scheduled task you can now go to event viewer and search for that event id 4698 in the security logs. You can see here there are several instances of this event.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Instances of Created Event"/></p>
+<p align="center"> <img src="https://i.imgur.com/NdrpYhJ.png" height="50%" width="50%" alt="Instances of Created Event"/></p>
 
 <b> Writing Analytic Rule </b>
 
@@ -190,11 +198,11 @@ Lastly, we need to write some KQL logic to alert us when a scheduled task is cre
 
 Go to the sentinel Home Page and click “Analytics Rules” and click create at the top of the page and select the scheduled query option.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Sentinel Created Rules for Scheduled Query"/></p>
+<p align="center"> <img src="https://i.imgur.com/my3tdAw.png" height="50%" width="50%" alt="Sentinel Created Rules for Scheduled Query"/></p>
 
 Here we are simply providing some information about the alert to the analyst.
 
-Next, we will come up with the alert logic that causes are our alert to fire.
+Next, we will come up with the alert logic that causes our alert to fire.
 
 Most of the logic will be like the KQL Query that we created earlier for logon event.
 
