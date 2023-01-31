@@ -200,7 +200,7 @@ Go to the sentinel Home Page and click “Analytics Rules” and click create at
 
 <p align="center"> <img src="https://i.imgur.com/my3tdAw.png" height="50%" width="50%" alt="Sentinel Created Rules for Scheduled Query"/></p>
 
-We will add the tactic and techniques of "Persistence and sub-category of T1053 - Scheduled task/job".
+We will add the tactic and techniques of "Persistence and sub-category of T1053 - Scheduled task/job". This will give you the 2 selected. 
 
 <p align="center"> <img src="https://i.imgur.com/ZmtuvBL.png" height="50%" width="50%" alt="Sentinel Tactics and Techniques"/></p>
 
