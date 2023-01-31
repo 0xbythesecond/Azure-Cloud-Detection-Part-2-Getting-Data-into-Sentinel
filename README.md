@@ -107,7 +107,7 @@ Logs should bring up this page.
 
 <p align="center"> <img src="https://i.imgur.com/l06AUNY.png" height="50%" width="50%" alt="Log page"/></p>
 
-In the section where it says “Type your query” we are going to use the following KQL (Kusto Query Language) Logic:
+In the section where it says “Type your query here or click one of the queries to start” we are going to use the following KQL (Kusto Query Language) Logic:
 
 <p align="center"> <img src="https://i.imgur.com/WqG4C9y.png" height="50%" width="50%" alt="KQL command request"/></p>
 
