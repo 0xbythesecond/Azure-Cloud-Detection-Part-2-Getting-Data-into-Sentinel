@@ -204,9 +204,10 @@ Here we are simply providing some information about the alert to the analyst.
 
 Next, we will come up with the alert logic that causes our alert to fire.
 
-Most of the logic will be like the KQL Query that we created earlier for logon event.
+Most of the logic will be like the <b> KQL Query</b> that we created earlier for logon event.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="KQL Query 4698"/></p>
+<pre> Security Event
+| where EventID == 4698 </pre>
 
 This query will pull instances of scheduled task creation as shown here in our logs.
 
