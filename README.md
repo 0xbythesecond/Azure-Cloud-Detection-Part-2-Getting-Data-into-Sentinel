@@ -239,7 +239,7 @@ This extracted the <b> SubjectUserName , TaskName, ClientProcessID </b> (Compute
 
 The above logic allows me to assign those to new categories such as User, NameofScheduledTask, and ClientProcessID respectively. When we project our new fields, the output is the following:
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="NameofScheduledTask, and ClientProcessID"/></p>
+<p align="center"> <img src="https://i.imgur.com/wUcXVZB.png" height="50%" width="50%" alt="NameofScheduledTask, and ClientProcessID"/></p>
 
 As you can see we’re able to generate Event Data and place it into its own category for readability.
 
@@ -273,7 +273,7 @@ Once you create your analytic rule the final step is to create another scheduled
 
 ###### Note this might take up to 10 minutes. Refresh the Incidents page periodically until the Alert triggers. When the alert fires this is what you should see.
 
-<p align="center"> <img src="https://i.imgur.com/DJmEXEB.png" height="50%" width="50%" alt="Second Scheduled Task"/></p>
+<p align="center"> <img src="https://i.imgur.com/0pw3jMF.png" height="50%" width="50%" alt="Second Scheduled Task"/></p>
 
 On the right pane we see all the necessary information we would need to begin investigating the alert such as the host machine, user account, process ID of the task, and the name of the scheduled task.
 
