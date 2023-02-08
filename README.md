@@ -60,7 +60,7 @@ Click “Start” at the top page to turn on the VM if its not running already .
 
 Under Networking, you are given a public IP. Use an RDP on your PC Client such as Remote Desktop Connection to access your VM by entering in the public IP address.
 
-<h6>Note: You might need to refresh after starting the virtual machine to have the public IP show up.</h6>
+>**Note**: You might need to refresh after starting the virtual machine to have the public IP show up.
 
 <p align="center"> <img src="https://i.imgur.com/bJeubsk.png" height="50%" width="50%" alt="Public IP address for VM"/></p>
 
@@ -271,7 +271,7 @@ Incident Settings and Automated Response are not necessary to alter for this lab
 
 Once you create your analytic rule the final step is to create another scheduled task in your Windows VM and wait for the alert to trigger in Sentinel
 
-###### Note this might take up to 10 minutes. Refresh the Incidents page periodically until the Alert triggers. When the alert fires this is what you should see.
+>**Note**: This might take up to 10 minutes. Refresh the Incidents page periodically until the Alert triggers. When the alert fires this is what you should see.
 
 <p align="center"> <img src="https://i.imgur.com/0pw3jMF.png" height="50%" width="50%" alt="Second Scheduled Task"/></p>
 
