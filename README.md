@@ -237,7 +237,7 @@ The <b> Parse </b> command will allow us to extract data from the Event Data Fie
 
 This extracted the <b> SubjectUserName , TaskName, ClientProcessID </b> (Computer automatically displays) .
 
-The above logic allows me to assign those to new categories such as User, NameofScheduledTask, and ClientProcessID respectively. When we project our new fields, the output is the following:
+The above logic allows me to assign those two new categories such as User, NameofScheduledTask, and ClientProcessID respectively. When we project our new fields, the output is the following:
 
 <p align="center"> <img src="https://i.imgur.com/wUcXVZB.png" height="70%" width="70%" alt="NameofScheduledTask, and ClientProcessID"/></p>
 
