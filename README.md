@@ -303,7 +303,7 @@ As observed. monitoring and logging of specific windows event id was used to det
 
 Mitigation
 <br />
-<a href="https://attack.mitre.org/mitigations/M1018//"> MITRE ID M1019 </a> – User Account Management suggests that user account privileges should be limited to only authorize admins to create scheduled tasks on remote systems.
+<a href="https://attack.mitre.org/mitigations/M1018//"> MITRE ID M1018 </a> – User Account Management suggests that user account privileges should be limited to only authorize admins to create scheduled tasks on remote systems.
 
 <p align="center"> <img src="https://i.imgur.com/Uoh3uny.png" height="80%" width="80%" alt="Mitre Mitigation"/></p>
 
