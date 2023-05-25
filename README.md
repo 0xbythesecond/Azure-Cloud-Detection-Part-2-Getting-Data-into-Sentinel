@@ -1,5 +1,16 @@
-# Part 2: Getting Data Into Sentinel
-After the Sentinel Deployment, if we go to the incidents tab on the left we see we don’t have any incidents currently as there is no data being fed into sentinel. Next, we are going to utilize data connectors and create a data collection rule to bring in data from our Windows 10 VM.
+# Detection Lab --- Part 2: Getting Data Into Sentinel
+
+![Detection Lab](https://github.com/0xbythesecond/azure-cloud-detection/blob/main/Detection%20Lab.png?raw=true)
+
+<details> 
+ 
+ <summary> 
+  
+  ### Gettings Data Into Sentinel 
+  
+ </summary>
+
+After the Sentinel Deployment, if we go to the incidents tab on the left we see that we don’t have any incidents currently as there is no data being fed into sentinel. Next, we are going to utilize data connectors and create a data collection rule to bring in data from our Windows 10 VM.
 
 <p align="center"> <img src="https://i.imgur.com/mvi2hj1.png" height="70%" width="70%" alt=" Select Add button"/></p>
 
@@ -43,9 +54,16 @@ Refresh the page until the “Connected” status is shown.
 
 <p align="center"> <img src="https://i.imgur.com/Bzhnk6y.png" height="70%" width="70%" alt="Connected Status"/></p>
 
+ </details> 
 <hr>
 
-Part 3: Generating Security Events
+<details> 
+
+<summary> 
+ 
+ ### Part 3: Generating Security Events
+ 
+ </summary>
 Now that our VM is connected to Sentinel and our Log Analytics Workspace, we need to transport data from our Logs. To do this, we simply need to perform some action on the Windows 10 events that will generate security alerts.
 
 Windows keeps a record of several types of security events. These events cover several potential scenarios such as <b> privileged use, Logon events, processes, policy changes</b>, and much more.
@@ -91,9 +109,17 @@ Use the find option and search for <b>4624</b>
 When we select event 4624 we see that 4624 ID is indicative of a successful logon. We can also examine more detailed information about the logon if need be.
 
 <p align="center"> <img src="https://i.imgur.com/O99FaMQ.png" height="70%" width="70%" alt="4624 Log Details"/></p>
+ 
+</details> 
 
-<hr> 
-<b>Part 4: Kusto Query Language</b>
+#
+ <details> 
+ 
+<summary> 
+ 
+ ### Part 4: Kusto Query Language
+ 
+ </summary> 
 <br />
 The purpose of a SIEM such as Azure Sentinel would be to bring data like this into a centralized location. In an enterprise, we would want data coming from all our endpoints and virtual machines to make it easier for an analyst to get the information that is needed quickly.
 
@@ -127,8 +153,15 @@ When the query is run we get this result.
 
 As you can see, we have a list of all the times we have had a successful login on our VM. However, as you can see the Account Name field is empty and sentinel is not automatically putting that data into that field. We will go over how to populate that field later in the lab when we create our analytic rule.
 
+</details>  
 <hr>
-<b> Part 5: Writing Analytic Rule and Generating Scheduled Task </b>
+<details> 
+ 
+<summary> 
+ 
+ ### Part 5: Writing Analytic Rule and Generating Scheduled Task
+ 
+ </summary> 
 <br />
 We can have the option to be alerted to certain events by setting up analytic rules. The Analytic rule will check our VM for the activity that matches the rule logic and generate an alert any time that activity is observed. There will be so some details provided in the alert that can help an analyst start their investigation into determining whether the event in the alert is a false positive or true positive.
 
@@ -158,7 +191,7 @@ Expand “System Audit Policies” and select "Object Access”. Then select the
   
 Select to enable Configure the following event: “Success” and “Failure”
 
-<p align="center"> <img src="https://i.imgur.com/eIx4HPD.png" height="70%" width="70%" alt="Enable Success & Failure"/></p>
+<p align="center"> <img src="https://i.imgur.com/eIx4HPD.png" height="30%" width="30%" alt="Enable Success & Failure"/></p>
 
 Logging is now enabled for the scheduled task event.
 
@@ -174,7 +207,7 @@ Open Windows Task Scheduler and navigate to “Create Task” . Add a name and c
 
 Navigate to triggers and click “new” and schedule the task for a time close to your current time. Then select “OK”
 
-<p align="center"> <img src="https://i.imgur.com/UK0PX7M.png" height="70%" width="70%" alt="Schedule time new current time"/></p>
+<p align="center"> <img src="https://i.imgur.com/UK0PX7M.png" height="50%" width="50%" alt="Schedule time new current time"/></p>
 
 Navigate to the action tab and select start a program.
 
@@ -182,9 +215,9 @@ Then open program or script and select a program to run every time this task run
 
 <p align="center"> <img src="https://i.imgur.com/xmFDX0E.png" height="70%" width="70%" alt="choose program"/></p>
 
-<p align="center"> <img src="https://i.imgur.com/J5iRQzK.png" height="70%" width="70%" alt="choose program"/></p>
+<p align="center"> <img src="https://i.imgur.com/J5iRQzK.png" height="50%" width="50%" alt="choose program"/></p>
 
-<p align="center"> <img src="https://i.imgur.com/NTIWyC1.png" height="70%" width="70%" alt="Select a Program"/></p>
+<p align="center"> <img src="https://i.imgur.com/NTIWyC1.png" height="50%" width="50%" alt="Select a Program"/></p>
 
 After this do not worry about the Conditions and Settings tab. Do not change any of the additional settings and click “OK”.
 
@@ -202,7 +235,7 @@ Go to the sentinel Home Page and click “Analytics Rules” and click create at
 
 We will add the tactic and techniques of "Persistence and sub-category of T1053 - Scheduled task/job". This will give you the 2 selected. 
 
-<p align="center"> <img src="https://i.imgur.com/ZmtuvBL.png" height="70%" width="70%" alt="Sentinel Tactics and Techniques"/></p>
+<p align="center"> <img src="https://i.imgur.com/ZmtuvBL.png" height="45%" width="45%" alt="Sentinel Tactics and Techniques"/></p>
 
 Here we are simply providing some information about the alert to the analyst.
 
@@ -210,9 +243,11 @@ Next, we will come up with the alert logic that causes our alert to fire.
 
 Most of the logic will be like the <b> KQL Query</b> that we created earlier for logon event.
 
-<pre> Security Event
-| where EventID == 4698 </pre>
-
+```elm
+ Security Event
+| where EventID == 4698
+```
+ 
 This query will pull instances of scheduled task creation as shown here in our logs.
 
 <p align="center"> <img src="https://i.imgur.com/c3EGsqj.png" height="70%" width="70%" alt="KQL Query 4698"/></p>
@@ -226,13 +261,16 @@ You should see something like this:
 There is a lot of useful data in here such as the name of the scheduled task, the Task Name field, the ClientProcessID, the username of the account that created the scheduled task amongst other info.
 
 However, if you use the project command to display these data fields as columns when you run the query, we need to add this to our logic.
-<pre> SecurityEvent                             
+
+```elm
+SecurityEvent                             
 | where EventID == 4698
 | parse EventData with * '<Data Name="SubjectUserName">' User '</Data>' *
 | parse EventData with * '<Data Name="TaskName">' NameofSceuduledTask '</Data>' *
 | parse EventData with * '<Data Name="ClientProcessId">' ClientProcessID '</Data>' *
 | project Computer, TimeGenerated, ClientProcessID, NameofSceuduledTask, User
-</pre>
+```
+ 
 The <b> Parse </b> command will allow us to extract data from the Event Data Field that we find important.
 
 This extracted the <b> SubjectUserName , TaskName, ClientProcessID </b> (Computer automatically displays) .
@@ -279,9 +317,15 @@ On the right pane we see all the necessary information we would need to begin in
 
 While in this case, the scheduled task is non-malicious, in the event it was, from here an analyst would investigate the entities such as the user account, the scheduled task, host, etc. with other tools such as an EDR solution and other security tools to decide if this is a false positive or true positive.
 
+ </details>
 <hr>
+<details> 
 
-Part 6: MITRE ATT&CK
+ <summary>
+  
+### Part 6: MITRE ATT&CK
+  
+ </summary>
 <br />
 The observed MITRE ATT&CK tactic used in this lab is <a href="https://attack.mitre.org/tactics/TA0003/">TA0003 Persistence </a> which essentially allows a malicious actor to maintain a foothold in an environment.
 
