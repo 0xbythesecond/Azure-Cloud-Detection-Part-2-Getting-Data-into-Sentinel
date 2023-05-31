@@ -1,4 +1,4 @@
-# Cloud Detection --- Part 2: Getting Data Into Sentinel
+# Azure Cloud Detection --- Part 2: Getting Data Into Sentinel
 
 ![Detection Lab](https://github.com/0xbythesecond/azure-cloud-detection/blob/main/Detection%20Lab.png?raw=true)
 
