@@ -6,11 +6,11 @@
  
  <summary> 
   
-  ### Gettings Data Into Sentinel 
+  ### Part 2: Gettings Data Into Sentinel 
   
  </summary>
 
-After the Sentinel Deployment, if we go to the incidents tab on the left we see that we don’t have any incidents currently as there is no data being fed into sentinel. Next, we are going to utilize data connectors and create a data collection rule to bring in data from our Windows 10 VM.
+After the Sentinel Deployment, if we go to the incidents tab on the left we see that we don’t have any incidents currently as there is no data being fed into Sentinel. Next, we are going to utilize data connectors and create a data collection rule to bring in data from our Windows 10 VM.
 
 <p align="center"> <img src="https://i.imgur.com/mvi2hj1.png" height="70%" width="70%" alt=" Select Add button"/></p>
 
@@ -40,7 +40,7 @@ Select the Virtual Machine created in Step 2 of the project.
 
 Your Virtual Machine should now be shown.
 
-<p align="center"> <img src="https://i.imgur.com/eqagdSc.png" height="70%" width="70%" alt="Virtual Machine shown as option to collect data"/></p>
+<p align="center"> <img src="https://i.imgur.com/eqagdSc.png" height="70%" width="70%" alt="Virtual Machine shown as an option to collect data"/></p>
 
 Now we will choose the 'Collect' tab to then choose to select “All Security Events” radio button. Once the 'All Security Events' option is selected, we can now choose 'Next: Review + Create'.
 
