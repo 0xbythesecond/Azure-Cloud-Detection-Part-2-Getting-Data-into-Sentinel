@@ -134,9 +134,11 @@ Logs should bring up this page.
 <p align="center"> <img src="https://i.imgur.com/l06AUNY.png" height="70%" width="70%" alt="Log page"/></p>
 
 In the section where it says “Type your query here or click one of the queries to start” we are going to use the following KQL (Kusto Query Language) Logic:
-
-<p align="center"> <img src="https://i.imgur.com/WqG4C9y.png" height="70%" width="70%" alt="KQL command request"/></p>
-
+```kql
+SecurityEvent
+| where EventID == 4624
+| project TimeGenerated, Computer AccountName
+```
 Every SIEM has a search language that makes it simple to extract data from Logs. In Sentinel, that language is called <b>KQL</b> or <b>Kusto Query Language</b>. While there are many different syntax rules and ways to construct queries in KQL we will be using a few basic KQL commands to extract the data and write our analytics rule later in the lab.
 
 Let’s break down the meaning of this query
